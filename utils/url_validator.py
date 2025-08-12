@@ -6,7 +6,7 @@ URL_PATTERN = '^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z
 
 
 def is_url_valid(url: str) -> bool:
-    '''Validate HTTP and HTTPS URLs'''
+    '''Validate HTTP and HTTPS URL structure'''
     if bool(re.search(URL_PATTERN, url)):
         return True
     else:

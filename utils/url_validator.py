@@ -19,14 +19,14 @@ def get_domain_and_path(url: str) -> tuple[str, str]:
     domain, path = '', ''
 
     if url.startswith('https://'):
-        url_without_protocol = url[8:]
+        domain = url[8:]
     else:
-        url_without_protocol = url[7:]
+        domain = url[7:]
 
     if '/' in domain:
-        path_starting_index = url_without_protocol.index('/')
-        path = url_without_protocol[path_starting_index:]
-        domain = url_without_protocol[:path_starting_index]
+        domain_ending_index = domain.index('/')
+        path = domain[domain_ending_index:]
+        domain = domain[:domain_ending_index]
 
     return domain, path
 

@@ -2,7 +2,8 @@
 
 
 from utils.parser import parse_arguments
-from utils.url_validator import validate_url
+from utils.port_validator import is_port_open
+from utils.url_validator import is_url_recheable
 
 
 def main():
@@ -11,9 +12,8 @@ def main():
     PORT = args.port
     URL = args.origin
 
-    validate_url(URL)
-
-    print(PORT, URL)
+    if is_port_open(PORT) and is_url_recheable(URL):
+        print(PORT, URL)
 
 if __name__ == '__main__':
     main()

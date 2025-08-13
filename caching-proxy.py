@@ -2,8 +2,11 @@
 
 
 from utils.parser import parse_arguments
-from utils.port_validator import is_port_open
 from utils.url_validator import is_url_recheable
+from src.proxy import Proxy
+
+
+HOST = '127.0.0.1'
 
 
 def main():
@@ -12,8 +15,10 @@ def main():
     PORT = args.port
     URL = args.origin
 
-    if is_port_open(PORT) and is_url_recheable(URL):
-        print(PORT, URL)
+    if is_url_recheable(URL):
+        proxy = Proxy()
+        proxy.run(HOST, PORT)
+
 
 if __name__ == '__main__':
     main()

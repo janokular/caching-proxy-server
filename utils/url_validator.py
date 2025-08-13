@@ -15,7 +15,7 @@ def is_url_valid(url: str) -> bool:
 
 
 def get_domain_and_path(url: str) -> tuple[str, str]:
-    '''Get doamin name and path from the URL'''
+    '''Get domain name and path from the URL'''
     domain, path = '', ''
 
     if url.startswith('https://'):

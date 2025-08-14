@@ -1,4 +1,4 @@
-## Caching Proxy Server
+## Caching proxy server
 ### How the caching proxy server works?
 ```
 +-----------------+                 +-----------------+                 +-----------------+

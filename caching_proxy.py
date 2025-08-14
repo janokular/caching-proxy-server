@@ -14,10 +14,11 @@ def main():
     
     PORT = int(args.port)
     URL = str(args.origin)
+    CLEAR_CACHE = bool(args.clear_cache)
 
-    if PORT and is_url_recheable(URL):
+    if PORT and URL:
         start_server(HOST, PORT, URL)
-    elif args.clear_cache:
+    elif CLEAR_CACHE:
         clear_cache()
     else:
         print('error: Something went wrong')

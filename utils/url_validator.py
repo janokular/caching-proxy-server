@@ -5,7 +5,7 @@ import http.client
 URL_PATTERN = '^https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$'
 
 
-def is_url_valid(url: str) -> bool:
+def is_url_valid(url: str):
     '''Validate HTTP and HTTPS URL structure'''
     if bool(re.search(URL_PATTERN, url)):
         return True
@@ -14,7 +14,7 @@ def is_url_valid(url: str) -> bool:
         return False
 
 
-def get_domain_and_path(url: str) -> tuple[str, str]:
+def get_domain_and_path(url: str):
     '''Get domain name and path from the URL'''
     domain, path = '', ''
 
@@ -31,7 +31,7 @@ def get_domain_and_path(url: str) -> tuple[str, str]:
     return domain, path
 
 
-def is_url_recheable(url: str) -> bool:
+def is_url_recheable(url: str):
     '''Validate if URL points to a webpage'''
     if is_url_valid(url):
         domain, path = get_domain_and_path(url)

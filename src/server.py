@@ -1,10 +1,9 @@
 import socket
 from urllib.request import Request, urlopen, HTTPError
-from utils.url_validator import is_url_recheable
 
 
 def start_server(host, port, url):
-    '''Start the Cache Proxy Server'''
+    '''Start the caching proxy server'''
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_socket.bind((host, port))
@@ -18,9 +17,6 @@ def start_server(host, port, url):
 
         request = client_conn.recv(1024).decode()
         print(request)
-
-        if is_url_recheable(url):
-            fetch(url)
 
         client_conn.close()
 
@@ -43,6 +39,7 @@ def fetch():
 
 
 def fetch_from_cache():
+    '''Fetch content from the cache storage'''
     try:
         return None
     except:
@@ -50,12 +47,15 @@ def fetch_from_cache():
 
 
 def fetch_from_server():
+    '''Fetch content from the origin server'''
     pass
 
 
 def save_in_cache():
+    '''Save content in the cache storage'''
     pass
 
 
 def clear_cache():
+    '''Clear all content inside cache storage'''
     pass

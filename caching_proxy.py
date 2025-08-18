@@ -2,24 +2,25 @@
 
 
 from utils.parser import parse_arguments
-from utils.url_validator import is_url_recheable
-from utils.port_validator import is_port_open
-from src.server import start_server, clear_cache
+from validators.origin_validator import is_origin_valid
+from validators.port_validator import is_port_open
+from src.server import start_server
 
 
 def main():
     args = parse_arguments()
     
-    HOST = 'localhost'
-    PORT = int(args.port)
-    URL = str(args.origin)
-    CLEAR_CACHE = bool(args.clear_cache)
+    HOST = '0.0.0.0'
+    PORT = args.port
+    ORIGIN = args.origin
+    CLEAR_CACHE = args.clear_cache
 
-    if is_port_open(HOST, PORT) and is_url_recheable(URL):
-        start_server(HOST, PORT, URL)
+    if PORT and ORIGIN:
+        # TODO is_port_open(HOST, PORT)
+        if is_origin_valid(ORIGIN):
+            start_server(HOST, PORT, ORIGIN)
     elif CLEAR_CACHE:
-        clear_cache()
-
+        print('Clearing cache...')
 
 if __name__ == '__main__':
     main()

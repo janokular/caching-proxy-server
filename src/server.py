@@ -5,35 +5,13 @@ from utils.url_validator import get_domain_and_path
 
 def start_server(host, port, url):
     '''Start the caching proxy server'''
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    server_socket.bind((host, port))
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind((host, port))
 
-    server_socket.listen(1)
+    s.listen(1)
 
     print(f'Cache proxy server is listening on http://{host}:{port}')
-
-    while True:
-        client_conn, client_addr = server_socket.accept()
-
-        request = client_conn.recv(1024).decode()
-        print(request)
-
-        headers = request.split('\n')
-
-        domain, path = get_domain_and_path(url)
-
-        content = fetch(domain, path)
-
-        if content:
-            response = 'HTTP/1.0 200 OK\n\n' + content
-        else:
-            response = 'HTTP/1.0 404 NOT FOUND\n\nFile Not Found\n'
-
-        client_conn.sendall(response.encode())
-        client_conn.close()
-
-    server_socket.close()
 
 
 def fetch(domain: str, path: str):

@@ -1,8 +1,36 @@
-# from http.server import ThreadingHTTPServer
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
-def start_server(host, port, origin):
+CACHE_DIR = '.cache'
+
+
+def start_server(port, origin):
     '''Start the caching proxy server'''
-    # server  = ThreadingHTTPServer(("", port))
-    print(f'Cache proxy server is running on http://{host}:{port}, forwarding to {origin}')
-    # server.serve_forever()
+    httpd = HTTPServer(('', port), BaseHTTPRequestHandler)
+    print(f"Caching proxy server is running on port {port}, forwarding requests to: {origin}")
+    httpd.serve_forever()
+
+
+def fetch():
+    ''''''
+    pass
+
+
+def fetch_from_cache():
+    ''''''
+    pass
+
+
+def fetch_from_origin():
+    ''''''
+    pass
+
+
+def save_in_cache():
+    ''''''
+    pass
+
+
+def clear_cache():
+    '''Clear the cache storage'''
+    print('Clearing cache...')

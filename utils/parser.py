@@ -2,7 +2,6 @@ import argparse
 
 
 def parse_arguments():
-    '''Parse arguments needed for the program's logic'''
     parser = argparse.ArgumentParser(description='Caching server that caches responses from other servers')
     parser.add_argument('--port', type=int, choices=range(1024, 49151), help='Registered port on which the caching proxy server will run')
     parser.add_argument('--origin', type=str, help='Origin URL of the server to which the requests will be forwarded')    

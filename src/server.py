@@ -11,7 +11,10 @@ CACHE_DIR = '.cache'
 def start_server(port: int, origin: str):
     print(f'Caching proxy server is running on port {port}, forwarding requests to {origin}')
     httpd = HTTPServer(('', port), create_handler(origin))
-    httpd.serve_forever()
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        httpd.server_close()
 
 
 def create_handler(origin: str):
@@ -24,25 +27,25 @@ def create_handler(origin: str):
 
 
 def handle_request(request_handler: SimpleHTTPRequestHandler, origin: str):
-    path = unquote(request_handler.path)
-    cache_filename_path = get_cache_path(path)
+    url_path = unquote(request_handler.path)
+    cache_file_path = get_cache_file_path(url_path)
 
-    if os.path.exists(cache_filename_path):
-        print(f'X-Cache hit: {path} - fetched from cache')
-        with open(cache_filename_path, 'rb') as f:
+    if os.path.exists(cache_file_path):
+        print(f'X-Cache hit: {url_path} - fetched from cache')
+        with open(cache_file_path, 'rb') as f:
             content = f.read()
         headers = [('X-Cache', 'HIT')]
     else:
-        print(f'X-Cache miss: {path} - fetching from {origin}{path}')
-        origin = urlparse(origin)
-        conn = HTTPConnection(origin.netloc)
-        conn.request('GET', path)
+        print(f'X-Cache miss: {url_path} - fetching from {origin}{url_path}')
+        url = urlparse(origin)
+        conn = HTTPConnection(url.netloc)
+        conn.request('GET', url_path)
         response = conn.getresponse()
         content = response.read()
         headers = response.getheaders()
         headers.append(('X-Cache', 'MISS'))
         conn.close()
-        with open(cache_filename_path, 'wb') as f:
+        with open(cache_file_path, 'wb') as f:
             f.write(content)
 
     request_handler.send_response(200)
@@ -52,8 +55,8 @@ def handle_request(request_handler: SimpleHTTPRequestHandler, origin: str):
     request_handler.wfile.write(content)
 
 
-def get_cache_path(path: str):
-    safe_filename = quote(path, safe='')
+def get_cache_file_path(url_path: str):
+    safe_filename = quote(url_path, safe='')
     os.makedirs(CACHE_DIR, exist_ok=True)
     return os.path.join(CACHE_DIR, safe_filename)
 

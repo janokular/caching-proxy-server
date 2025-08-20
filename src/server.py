@@ -47,8 +47,7 @@ def handle_request(request_handler: SimpleHTTPRequestHandler, origin: str):
 
     request_handler.send_response(200)
     for key, value in headers:
-        if key.lower() != 'transfer-encoding':
-            request_handler.send_header(key, value)
+        request_handler.send_header(key, value)
     request_handler.end_headers()
     request_handler.wfile.write(content)
 
@@ -60,5 +59,8 @@ def get_cache_path(path: str):
 
 
 def clear_cache():
-    print('Clearing cache storage...')
-    shutil.rmtree(CACHE_DIR)
+    if os.path.exists(CACHE_DIR):
+        print('Clearing cache storage...')
+        shutil.rmtree(CACHE_DIR)
+    else:
+        print('Cache storage is empty')

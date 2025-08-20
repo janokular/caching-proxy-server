@@ -9,14 +9,13 @@ from src.server import start_server, clear_cache
 def main():
     args = parse_arguments()
     
-    PORT = args.port
-    ORIGIN = args.origin
-    CLEAR_CACHE = args.clear_cache
+    port = args.port
+    origin = args.origin
 
-    if PORT and ORIGIN:
-        if is_origin_valid(ORIGIN):
-            start_server(PORT, ORIGIN)
-    elif CLEAR_CACHE:
+    if port and origin:
+        if is_origin_valid(origin):
+            start_server(port, origin)
+    elif args.clear_cache:
         clear_cache()
 
 if __name__ == '__main__':

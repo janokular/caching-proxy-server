@@ -8,5 +8,5 @@ def is_origin_valid(origin: str):
     if bool(re.search(ORIGIN_PATTERN, origin)):
         return True
     else:
-        print(f'error: {origin} is invalid')
+        print(f'error: Origin {origin} is invalid')
         return False

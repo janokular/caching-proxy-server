@@ -4,5 +4,10 @@ Vagrant.configure("2") do |config|
   config.vm.define "cachingproxy" do |cachingproxy|
     cachingproxy.vm.hostname = "cachingproxy"
     cachingproxy.vm.network "forwarded_port", guest: 3000, host: 3000
+
+    cachingproxy.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      apt-get install -y curl
+    SHELL
   end
 end

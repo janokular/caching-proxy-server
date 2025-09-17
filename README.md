@@ -40,13 +40,13 @@ If the client makes the request to `http://localhost:3000/forms/post`\
 The caching proxy server forwards the request to `https://httpbin.org/forms/post`\
 It return the response along with headers and stores the response inside the cache storage
 ```
-$ caching_proxy.py --port 3000 --origin https://httpbin.org
+caching_proxy.py --port 3000 --origin https://httpbin.org
 ```
 
 #### Response from the origin server
 If the response is from the origin server `X-Cache: MISS`
 ```
-$ curl -i http://localhost:3000/forms/post
+curl -i http://localhost:3000/forms/post
 ```
 ```
 HTTP/1.0 200 OK
@@ -95,7 +95,7 @@ X-Cache: MISS
 #### Response from the cache
 If the response is from the cache `X-Cache: HIT`
 ```
-$ curl -i http://localhost:3000/forms/post
+curl -i http://localhost:3000/forms/post
 ```
 ```
 HTTP/1.0 200 OK
